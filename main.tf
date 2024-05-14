@@ -1,10 +1,8 @@
+
 resource "aws_vpc" "main" {
   cidr_block = var.cidr
 }
 
-variable "subnets" {
-  default = ""
-}
 module "subnets" {
   source = "./subnets"
   for_each = var.subnets
@@ -41,9 +39,11 @@ resource "aws_route" "ngw" {
   count                    = local.private_route_table_ids
   route_table_id = element(local.private_route_table_ids, count.index )
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id = element(aws_nat_gateway.ngw.*.id, count.index)
+  nat_gateway_id = element(aws_nat_gateway.ngw.*.id, count.index)
+}
+resource "aws_vpc_peering_connection" "peering" {
+  peer_vpc_id   = aws_vpc.main.id
+  vpc_id        = var.default_vpc_id
+  auto_accept = true
 }
 
-output "subnet" {
-  value = module.subnets
-}
