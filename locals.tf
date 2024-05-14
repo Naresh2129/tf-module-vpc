@@ -10,4 +10,5 @@ locals {
   app_route_table_ids = [for k,v in lookup(lookup(module.subnets, "app", null), "subnet_ids", null):v.id ]
   db_route_table_ids = [for k,v in lookup(lookup(module.subnets, "db", null), "subnet_ids", null):v.id ]
   private_route_table_ids = concat(local.app_route_table_ids, local.db_route_table_ids)
+
 }
