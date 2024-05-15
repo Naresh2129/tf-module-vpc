@@ -1,8 +1,8 @@
-output "subnet" {
+output "subnets" {
   value = module.subnets
 }
 
-output "public_subnets_ids" {
+output "public_subnet_ids" {
   value = local.public_subnet_ids
 }
 
