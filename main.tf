@@ -15,9 +15,6 @@
      }
    }
 
-   output "subnet" {
-     value = "module.subnets"
-   }
 
    resource "aws_route" "igw" {
      for_each = lookup(lookup(module.subnets, "public", null), "route_table_ids", null)
@@ -90,8 +87,8 @@ resource "aws_route" "ngw" {
 #   destination_cidr_block    = var.cidr
 #   vpc_peering_connection_id = aws_vpc_peering_connection.peering.id
 # }
-#
-#
-output "subnet" {
-  value = "module.subnets"
-}
+   output "subnet" {
+     value = "module.subnets"
+   }
+
+
