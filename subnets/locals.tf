@@ -12,9 +12,4 @@ locals{
   db_route_table_ids      = [for k,v in lookup(lookup(module.subnets, "db", null), "route_table_ids", null) : v.id]
   private_subnet_ids = concat(local.app_route_table_ids, local.db_route_table_ids)
 
-
-
-
-
-
 }
